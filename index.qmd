@@ -8,23 +8,25 @@ date-format: long
 
 # Introduction
 
-How do different Global Climate Models (GCMs) impact the projections of ice sheet behavior in ISMIP6 simulations? What is the influence of ocean forcing on the projections of ice sheet dynamics in ISMIP6 models? How do different Representative Concentration Pathways (RCPs) affect the projected outcomes of ice sheet models in ISMIP6? These are questions that have been asked within the ice sheet community in the recent years as new data, methods, and ideas have submerged.
+How do different Global Climate Models (GCMs) impact the projections of ice sheet behavior in ISMIP6 simulations? What is the influence of ocean forcing on the projections of ice sheet dynamics in ISMIP6 models? How do different Representative Concentration Pathways (RCPs) affect the projected outcomes of ice sheet models in ISMIP6? These are questions that have been asked within the ice sheet community in the recent years as new data, methods, and ideas have been discovered.
 
-The Ice Sheet Model Intercomparison Project for CMIP6 (ISMIP6) aims to address these questions by providing a framework for evaluating and comparing the responses of ice sheet models to various climate scenarios. ISMIP6 integrates multiple GCMs, RCPs, and ocean forcing datasets to project the future behavior of the Greenland and Antarctic ice sheets.
+The Ice Sheet Model Intercomparison Project for CMIP6 (ISMIP6) aims to address these questions by providing a framework for evaluating and comparing the responses of ice sheet models to various climate scenarios. ISMIP6 integrates multiple GCMs, RCPs, and ocean forcing parameters to project the future behavior of the Greenland and Antarctic ice sheets.
 
-This study focuses on analyzing the RCP experiments and looking at one key variable Surface Mass Balance flux. Principal Component Analysis (PCA) and K-means clustering will be used to analyze the variables, aiming to uncover patterns and groupings in the data. This approach will help to understand the variations in ice sheet response under various scenarios, RCP 8.5 and 2.6. **Hypothesis:** By implimenting PCA and Clustering methods,it is possible to uncover hidden patterns in the ISMIP6 simulation data, enabling more efficient data reduction and grouping of similar data points for further analysis. This approach will enhance our ability to identify key trends and relationships in ice sheet responses, leading to more accurate predictions and insights.
+This study focuses on analyzing the RCP experiments and looking at one key variable Surface Mass Balance flux (acabf). Principal Component Analysis (PCA) and K-means clustering will be used to analyze the variables, aiming to uncover patterns and groupings in the data.**Hypothesis:** By implementing PCA and Clustering methods,it is possible to uncover hidden patterns in the ISMIP6 simulation data, enabling more efficient data reduction and grouping of similar data points for further analysis. This approach will help to understand the variations in ice sheet response under various scenarios, RCP 8.5 and 2.6. 
 
 # Materials and methods
 
 \[\~ 200 words\]
 
-Narrative: Clear narrative description of the data sources and methods. Includes data from at least two sources that were integrated / merged in R.
+Narrative: 
 
-Code: The code associated with the project is well organized and easy to follow. Demonstrates mastery of R graphics and functions.
+Code: 
 
 Data:
 
-The data used in this study was sourced from the Center for Computational Research (CCR) at the University at Buffalo. The ISMIP6 dataset was previously downloaded from the CCR repository, focusing on the experiment and variable types needed for the RCP experiment group. This dataset includes projections of land ice thickness and Surface Mass Balance (SMB) flux different Representative Concentration Pathways (RCPs). Updated
+The data used in this study was sourced from the Center for Computational Research (CCR) at the University at Buffalo. The ISMIP6 dataset was previously downloaded from the CCR repository, focusing on the experiment and variable types needed for the RCP experiment group. This dataset includes projections of land ice thickness different Representative Concentration Pathways (RCPs). More information for ISMIP6 and the CCR can be found at:
+
+[GHub Link]("https://theghub.org/groups/ismip6/wiki")
 
 [CCR website](https://www.buffalo.edu/ccr.html)
 
