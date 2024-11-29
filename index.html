@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.57">
+<meta name="generator" content="quarto-1.6.39">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Eleanor M. Byrne">
-<meta name="dcterms.date" content="2024-11-21">
+<meta name="dcterms.date" content="2024-11-29">
 
 <title>Unveiling Hidden Patterns: Clustering Analysis with ISMIP6 Models – GEO511_FinalProject</title>
 <style>
@@ -71,10 +71,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-659650fc26dc25888fc1474f317bb8ac.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -166,7 +166,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">November 21, 2024</p>
+      <p class="date">November 29, 2024</p>
     </div>
   </div>
   
@@ -180,38 +180,41 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="introduction" class="level1">
 <h1>Introduction</h1>
-<p>How do different Global Climate Models (GCMs) impact the projections of ice sheet behavior in ISMIP6 simulations? What is the influence of ocean forcing on the projections of ice sheet dynamics in ISMIP6 models? How do different Representative Concentration Pathways (RCPs) affect the projected outcomes of ice sheet models in ISMIP6? These are questions that have been asked within the ice sheet community in the recent years as new data, methods, and ideas have submerged.</p>
-<p>The Ice Sheet Model Intercomparison Project for CMIP6 (ISMIP6) aims to address these questions by providing a framework for evaluating and comparing the responses of ice sheet models to various climate scenarios. ISMIP6 integrates multiple GCMs, RCPs, and ocean forcing datasets to project the future behavior of the Greenland and Antarctic ice sheets.</p>
-<p>This study focuses on analyzing the RCP experiments and looking at one key variable Surface Mass Balance flux. Principal Component Analysis (PCA) and K-means clustering will be used to analyze the variables, aiming to uncover patterns and groupings in the data. This approach will help to understand the variations in ice sheet response under various scenarios, RCP 8.5 and 2.6. <strong>Hypothesis:</strong> By implementing PCA and Clustering methods,it is possible to uncover hidden patterns in the ISMIP6 simulation data, enabling more efficient data reduction and grouping of similar data points for further analysis. This approach will enhance our ability to identify key trends and relationships in ice sheet responses, leading to more accurate predictions and insights.</p>
+<p>How do different Global Climate Models (GCMs) impact the projections of ice sheet behavior in ISMIP6 simulations? What is the influence of ocean forcing on the projections of ice sheet dynamics in ISMIP6 models? How do different Representative Concentration Pathways (RCPs) affect the projected outcomes of ice sheet models in ISMIP6? These are questions that have been asked within the ice sheet community in the recent years as new data, methods, and ideas have been discovered.</p>
+<p>The Ice Sheet Model Intercomparison Project for CMIP6 (ISMIP6) aims to address these questions by providing a framework for evaluating and comparing the responses of ice sheet models to various climate scenarios. ISMIP6 integrates multiple GCMs, RCPs, and ocean forcing parameters to project the future behavior of the Greenland and Antarctic ice sheets.</p>
+<p>This study focuses on analyzing the RCP experiments and looking at one key variable Surface Mass Balance flux (acabf). Principal Component Analysis (PCA) and K-means clustering will be used to analyze the variables, aiming to uncover patterns and groupings in the data.<strong>Hypothesis:</strong> By implementing PCA and Clustering methods,it is possible to uncover hidden patterns in the ISMIP6 simulation data, enabling more efficient data reduction and grouping of similar data points for further analysis. This approach will help to understand the variations in ice sheet response under various scenarios, RCP 8.5 and 2.6.</p>
 </section>
 <section id="materials-and-methods" class="level1">
 <h1>Materials and methods</h1>
 <p>[~ 200 words]</p>
-<p>Narrative: Clear narrative description of the data sources and methods. Includes data from at least two sources that were integrated / merged in R.</p>
-<p>Code: The code associated with the project is well organized and easy to follow. Demonstrates mastery of R graphics and functions.</p>
+<p>Narrative:</p>
+<p>Code:</p>
 <p>Data:</p>
-<p>The data used in this study was sourced from the Center for Computational Research (CCR) at the University at Buffalo. The ISMIP6 dataset was previously downloaded from the CCR repository, focusing on the experiment and variable types needed for the RCP experiment group. This dataset includes projections of land ice thickness different Representative Concentration Pathways (RCPs).</p>
+<p>The data used in this study was sourced from the Center for Computational Research (CCR) at the University at Buffalo. The ISMIP6 dataset was previously downloaded from the CCR repository, focusing on the experiment and variable types needed for the RCP experiment group. This dataset includes projections of land ice thickness different Representative Concentration Pathways (RCPs). More information for ISMIP6 and the CCR can be found at:</p>
+<p><a href="&quot;https://theghub.org/groups/ismip6/wiki&quot;">GHub Link</a></p>
+<p><a href="https://www.buffalo.edu/ccr.html">CCR website</a></p>
+<p>See <a href="http://rmarkdown.rstudio.com/" class="uri">http://rmarkdown.rstudio.com/</a> for all the amazing things you can do .</p>
+<p>Load any required packages in a code chunk (you may need to install some packages):</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># loading needed packages </span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("tidyverse")</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(leaflet)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(htmlwidgets)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(widgetframe)</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lattice)</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ncdf4)</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(curl)</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("corrr")</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">'corrr'</span>)</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("FactoMineR")</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"FactoMineR"</span>)</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("ggcorrplot")</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggcorrplot)</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">widgetframe_widgets_dir =</span> <span class="st">'widgets'</span> ) </span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">cache=</span><span class="cn">TRUE</span>)  <span class="co"># cache the results for quick compiling</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(leaflet)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(htmlwidgets)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(widgetframe)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ncdf4)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rmarkdown)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("corrr")</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">'corrr'</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("FactoMineR")</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"FactoMineR"</span>)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("ggcorrplot")</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggcorrplot)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">widgetframe_widgets_dir =</span> <span class="st">'widgets'</span> ) </span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">cache=</span><span class="cn">TRUE</span>)  <span class="co"># cache the results for quick compiling</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="download-and-clean-all-required-data" class="level2">
 <h2 class="anchored" data-anchor-id="download-and-clean-all-required-data">Download and clean all required data</h2>
@@ -227,6 +230,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>[~200 words]</p>
 <p>Tables and figures (maps and other graphics) are carefully planned to convey the results of your analysis. Intense exploration and evidence of many trials and failures. The author looked at the data in many different ways before coming to the final presentation of the data.</p>
 <p>Show tables, plots, etc. and describe them.</p>
+<section id="dygraphs-example" class="level3">
+<h3 class="anchored" data-anchor-id="dygraphs-example">Dygraphs Example</h3>
+</section>
 </section>
 <section id="conclusions" class="level1">
 <h1>Conclusions</h1>
@@ -323,8 +329,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
   clipboard.on('success', onCopySuccess);
   if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
     const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
       text: getTextToCopy,
       container: window.document.getElementById('quarto-embedded-source-code-modal')
@@ -435,7 +439,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {
