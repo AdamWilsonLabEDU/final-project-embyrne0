@@ -12,40 +12,41 @@ How do different Global Climate Models (GCMs) impact the projections of ice shee
 
 The Ice Sheet Model Intercomparison Project for CMIP6 (ISMIP6) aims to address these questions by providing a framework for evaluating and comparing the responses of ice sheet models to various climate scenarios. ISMIP6 integrates multiple GCMs, RCPs, and ocean forcing parameters to project the future behavior of the Greenland and Antarctic ice sheets.
 
-This study focuses on analyzing the RCP experiments and looking at one key variable Surface Mass Balance flux (acabf). Principal Component Analysis (PCA) and K-means clustering will be used to analyze the variables, aiming to uncover patterns and groupings in the data.**Hypothesis:** By implementing PCA and Clustering methods,it is possible to uncover hidden patterns in the ISMIP6 simulation data, enabling more efficient data reduction and grouping of similar data points for further analysis. This approach will help to understand the variations in ice sheet response under various scenarios, RCP 8.5 and 2.6. 
+This study focuses on analyzing the RCP experiments and looking at one key variable Surface Mass Balance flux (acabf). Principal Component Analysis (PCA) and K-means clustering will be used to analyze the variables, aiming to uncover patterns and groupings in the data. **Hypothesis:** By implementing PCA and Clustering methods,it is possible to uncover hidden patterns in the ISMIP6 simulation data, enabling more efficient data reduction and grouping of similar data points for further analysis. This approach will help to understand the variations in ice sheet response under various scenarios, RCP 8.5 and 2.6.
 
 # Materials and methods
 
 \[\~ 200 words\]
 
-Narrative: 
+Narrative:
 
-Code: 
+Code:
 
-Data:
+Data: The data used in this study was sourced from the Center for Computational Research (CCR) at the University at Buffalo. The ISMIP6 dataset was previously downloaded from the CCR repository, focusing on the experiment and variable types needed for the RCP experiment group. This dataset includes projections of land ice thickness different Representative Concentration Pathways (RCPs). More information for ISMIP6 and the CCR can be found at:
 
-The data used in this study was sourced from the Center for Computational Research (CCR) at the University at Buffalo. The ISMIP6 dataset was previously downloaded from the CCR repository, focusing on the experiment and variable types needed for the RCP experiment group. This dataset includes projections of land ice thickness different Representative Concentration Pathways (RCPs). More information for ISMIP6 and the CCR can be found at:
-
-[GHub Link]("https://theghub.org/groups/ismip6/wiki")
+[GHub Link](%22https://theghub.org/groups/ismip6/wiki%22)
 
 [CCR website](https://www.buffalo.edu/ccr.html)
 
 See <http://rmarkdown.rstudio.com/> for all the amazing things you can do .
 
-Load any required packages in a code chunk (you may need to install some packages):
+# Load any required packages in a code chunk (you may need to install some packages):
 
 ```{r, message=F, warning=F}
 # loading needed packages 
+# install.packages("tidyverse")
 library(tidyverse)
 library(leaflet)
 library(kableExtra)
 library(htmlwidgets)
 library(widgetframe)
+library(lattice)
 library(ncdf4)
 library(stringr)
 library(dplyr)
 library(rmarkdown)
 library(knitr)
+library(curl)
 # install.packages("corrr")
 library('corrr')
 # install.packages("FactoMineR")

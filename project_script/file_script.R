@@ -1,8 +1,9 @@
 # This is for setting up the project
-  # Setting the variables (acabf) from expo05 and exp07
-    # acabf: SurfaceMass balance (SMB)
-    # Exp05:RCP 8.5
-    # Exp07: RCP 2.6
+# Setting the variables (acabf) from expo05 and exp07
+# acabf: SurfaceMass balance (SMB)
+# Exp05:RCP 8.5
+# Exp07: RCP 2.6
+# Time = 2015, this is the starting period for the projection
 
 # Download all PAckages
 library(ncdf4)  # For reading NetCDF files
@@ -32,6 +33,6 @@ filtered_files <- files[grep(var, files)]
 print(filtered_files)
 
 
-nc_data <- nc_open('data/acabf_GIS_VUB_GISM_exp05.nc')
-t <- ncvar_get(nc_data, "time")
-variable <- ncvar_get(nc_data, var)
+# nc_data <- nc_open('data/acabf_GIS_VUB_GISM_exp05.nc')
+# t <- ncvar_get(nc_data, "time")
+# variable <- ncvar_get(nc_data, var)
