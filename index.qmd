@@ -12,7 +12,7 @@ How do different Global Climate Models (GCMs) impact the projections of ice shee
 
 The Ice Sheet Model Intercomparison Project for CMIP6 (ISMIP6) aims to address these questions by providing a framework for evaluating and comparing the responses of ice sheet models to various climate scenarios. ISMIP6 integrates multiple GCMs, RCPs, and ocean forcing datasets to project the future behavior of the Greenland and Antarctic ice sheets.
 
-This study focuses on analyzing the RCP experiments and looking at one key variable Surface Mass Balance flux. Principal Component Analysis (PCA) and K-means clustering will be used to analyze the variables, aiming to uncover patterns and groupings in the data. This approach will help to understand the variations in ice sheet response under various scenarios, RCP 8.5 and 2.6. **Hypothesis:** Variations in Representative Concentration Pathways (RCPs) will lead to significantly different projections of Surface Mass Balance (SMB) flux in ISMIP6 simulations. Specifically, higher RCP scenarios will result in greater reductions in a negative SMB fluxes due to increased temperature and melting rates.
+This study focuses on analyzing the RCP experiments and looking at one key variable Surface Mass Balance flux. Principal Component Analysis (PCA) and K-means clustering will be used to analyze the variables, aiming to uncover patterns and groupings in the data. This approach will help to understand the variations in ice sheet response under various scenarios, RCP 8.5 and 2.6. **Hypothesis:** By implimenting PCA and Clustering methods,it is possible to uncover hidden patterns in the ISMIP6 simulation data, enabling more efficient data reduction and grouping of similar data points for further analysis. This approach will enhance our ability to identify key trends and relationships in ice sheet responses, leading to more accurate predictions and insights.
 
 # Materials and methods
 
@@ -24,13 +24,11 @@ Code: The code associated with the project is well organized and easy to follow.
 
 Data:
 
-The data used in this study was sourced from the Center for Computational Research (CCR) at the University at Buffalo. The ISMIP6 dataset was previously downloaded from the CCR repository, focusing on the experiment and variable types needed for the RCP experiment group. This dataset includes projections of land ice thickness and Surface Mass Balance (SMB) flux different Representative Concentration Pathways (RCPs).
+The data used in this study was sourced from the Center for Computational Research (CCR) at the University at Buffalo. The ISMIP6 dataset was previously downloaded from the CCR repository, focusing on the experiment and variable types needed for the RCP experiment group. This dataset includes projections of land ice thickness and Surface Mass Balance (SMB) flux different Representative Concentration Pathways (RCPs). Updated
 
 [CCR website](https://www.buffalo.edu/ccr.html)
 
-See <http://rmarkdown.rstudio.com/> for all the amazing things you can do.
-
-Refer to output in your narrative like this: x=`r x` .
+See <http://rmarkdown.rstudio.com/> for all the amazing things you can do .
 
 Load any required packages in a code chunk (you may need to install some packages):
 
@@ -44,6 +42,8 @@ library(widgetframe)
 library(ncdf4)
 library(stringr)
 library(dplyr)
+library(rmarkdown)
+library(knitr)
 # install.packages("corrr")
 library('corrr')
 # install.packages("FactoMineR")
@@ -54,227 +54,13 @@ knitr::opts_chunk$set(widgetframe_widgets_dir = 'widgets' )
 knitr::opts_chunk$set(cache=TRUE)  # cache the results for quick compiling
 ```
 
-```{r}
-nc_data <- nc_open('C:/Users/Margo/OneDrive/Documents/Fall 2024 Courses/Spatial Data Science Course/final-project-embyrne0/data/lithk_GIS_AWI_ISSM1_exp05.nc')
-
-nc_data # this is an example of what a lithk nc file would look like 
-```
-
 ## Download and clean all required data
-
-```{r}
-file_dir <- "C:/Users/Margo/OneDrive/Documents/Fall 2024 Courses/Spatial Data Science Course/final-project-embyrne0/data"
-
-# Variables to analyze
-vars <- c("acabf")
-
-# Experiments to analyze
-exp <- c("exp05", "exp07")
-
-# Initialize an empty list to store data for each combination of experiment, variable, model group, and model
-data_by_group_exp_var <- list()
-
-# Loop through each experiment
-for (experiment in exp) {
-  
-  # Loop through each variable
-  for (variable in vars) {
-    
-    # Define the file search pattern for each combination of experiment and variable
-    pattern <- paste0(variable, "_.*_.*_.*_", experiment, ".nc")
-    
-    # Use list.files with 'fixed = TRUE' to avoid regex issues
-    file_list <- list.files(path = file_dir, pattern = pattern, full.names = TRUE, recursive = TRUE)
-    
-    # Check if there are any files found for this combination
-    if (length(file_list) == 0) {
-      cat("No files found for variable", variable, "and experiment", experiment, ". Skipping...\n")
-      next
-    }
-    
-    # Process the files for this variable and experiment
-    for (file in file_list) {
-      file_name <- basename(file)
-      
-      # Use regex to extract model group and model name
-      match_result <- str_match(file_name, paste0(variable, "_GIS_(.*)_([^_]+)_", experiment, ".nc"))
-      
-      if (is.na(match_result[1, 1])) {
-        cat("Error matching file name for", file_name, ". Skipping...\n")
-        next
-      }
-      
-      model_group <- match_result[2]
-      model_name <- match_result[3]
-      
-      cat("Reading data of model", model_name, "from group", model_group, "from file:", substr(file, nchar(file_dir) + 1, nchar(file)), "\n")
-      
-      # Open the NetCDF file
-      nc_data <- nc_open(file)
-      
-      # Handle 'time' dimension
-      if ("time" %in% names(nc_data$dim)) {
-        
-        # Extract time values and units
-        time_values <- nc_data$dim$time$vals
-        time_units <- nc_data$dim$time$units
-        
-        # Convert the time units to date
-        start_date <- as.Date(sub("days since ", "", time_units))  # Extract start date
-        time_dates <- start_date + time_values  # Calculate actual dates
-        
-        # Extract the starting year (first time index)
-        first_time_index <- 1
-        first_time_date <- time_dates[first_time_index]
-        start_year <- format(first_time_date, "%Y")
-        
-        # Print the starting year
-        cat("Starting year for", file_name, ":", start_year, "\n")
-        
-      } else {
-        cat("Time variable 'time' not found in file", file, "- skipping\n")
-        nc_close(nc_data)
-        next
-      }
-      
-      # Now handle the dimension check
-      # Extract the variable of interest (e.g., 'lithk', 'litemptop', etc.)
-      var_data <- ncvar_get(nc_data, variable)
-      
-      # Check if var_data is NULL or empty
-      if (is.null(var_data) || length(var_data) == 0) {
-        cat("Error: Variable", variable, "in file", file_name, "is empty or not found. Skipping...\n")
-        nc_close(nc_data)
-        next
-      }
-      
-      # Print dimensions of the variable data for debugging
-      cat("Dimensions of", variable, ":", dim(var_data), "\n")
-      
-      # Check the dimensions of the variable
-      var_dims <- dim(var_data)
-      num_time_steps <- var_dims[3]  # Time is the 3rd dimension, adjust if necessary
-      
-      # Ensure the length of var_data matches the expected number of cells for each time step
-      expected_length_per_time_step <- 337 * 577  # Number of cells per time step (longitude x latitude)
-      expected_length_total <- expected_length_per_time_step * num_time_steps
-      
-      # Flatten the variable data for analysis
-      var_1d <- as.vector(var_data)
-      
-      # Print length of var_1d for debugging
-      cat("Length of var_1d:", length(var_1d), "\n")
-      
-      # Check if the length matches the expected length
-      if (!is.na(length(var_1d)) && length(var_1d) > 0) {
-        
-        # Continue with processing the data as needed
-        cat("Variable", variable, "has the expected dimensions and will be processed.\n")
-        
-        
-        # Create a key that combines experiment, variable, model group, and model name
-        group_exp_var_key <- paste0(model_group, "_", model_name, "_", experiment, "_", variable)
-        
-        # If the key doesn't exist, initialize it
-        if (!(group_exp_var_key %in% names(data_by_group_exp_var))) {
-          data_by_group_exp_var[[group_exp_var_key]] <- list()
-        }
-        
-        # Append the processed data (var_1d) to the list under the key
-        data_by_group_exp_var[[group_exp_var_key]][[length(data_by_group_exp_var[[group_exp_var_key]]) + 1]] <- var_1d
-        
-      } else {
-        cat("Warning: Variable", variable, "does not match the expected dimensions. Skipping...\n")
-      }
-      
-      # Close the NetCDF file
-      nc_close(nc_data)
-    }
-  }
-}
-```
-
-```{r}
-
-# Getting rid of NaN and zeros 
-  # First, convert NaN to 0 and then change to -9999
-  # Afterwards drop
-# Iterate over the `data_by_group_exp_var` to clean each variable's data in the list.
-for (key in names(data_by_group_exp_var)) {
-  
-  # Iterate over each list entry under the key
-  for (i in seq_along(data_by_group_exp_var[[key]])) {
-    
-    # Get the data (var_1d_clean)
-    var_data <- data_by_group_exp_var[[key]][[i]]
-    
-    # Convert NaN to 0, then change 0 to -9999
-    var_data[is.na(var_data)] <- 0
-    var_data[var_data == 0] <- -9999
-    
-    # Remove all -9999 values
-    cleaned_data <- var_data[var_data != -9999]
-    
-    # Update the list with the cleaned data
-    data_by_group_exp_var[[key]][[i]] <- cleaned_data
-  }
-}
-```
 
 Add any additional processing steps here.
 
 # Methods
 
 Using the PCA and the K-means Clustering
-
-```{r}
-
-```
-
-```{r}
-# Combine data from both experiments (exp05 and exp07)
-combined_data <- list()
-
-# Iterate over the experiments
-for (experiment in exp) {
-  for (variable in vars) {
-    
-    # Initialize a list to store the 1D variable data for each experiment
-    exp_data <- list()
-    
-    # Loop through each key in your data_by_group_exp_var (already processed data)
-    for (key in names(data_by_group_exp_var)) {
-      # Check if the key corresponds to the current experiment and variable
-      if (grepl(paste0("_", experiment, "_", variable), key)) {
-        
-        # Combine the data for this experiment and variable
-        for (i in seq_along(data_by_group_exp_var[[key]])) {
-          exp_data[[length(exp_data) + 1]] <- data_by_group_exp_var[[key]][[i]]
-        }
-      }
-    }
-    
-    # Combine the data for this experiment into a matrix (rows = models, columns = grid cells)
-    if (length(exp_data) > 0) {
-      exp_matrix <- do.call(rbind, exp_data)
-      combined_data[[paste0(experiment, "_", variable)]] <- exp_matrix
-    }
-  }
-}
-
-# Now combine data from both experiments into a single matrix
-data_exp05 <- combined_data[["exp05_acabf"]]
-data_exp07 <- combined_data[["exp07_acabf"]]
-
-# Ensure that both datasets have the same number of rows (models)
-# If not, additional handling may be needed to align them
-
-# Stack the two datasets (exp05 and exp07) into one matrix
-final_data_matrix <- rbind(data_exp05, data_exp07)
-
-# Run PCA on the combined data matrix (center and scale the data)
-pca_result <- prcomp(final_data_matrix, center = TRUE, scale. = TRUE)
-```
 
 # Results
 
@@ -284,38 +70,7 @@ Tables and figures (maps and other graphics) are carefully planned to convey the
 
 Show tables, plots, etc. and describe them.
 
-```{r}
-# Viewing the PCA Loadings of all the variables and files 
-for (key in names(pca_results)) {
-  for (i in seq_along(pca_results[[key]])) {
-    pca_loadings <- pca_results[[key]][[i]]$rotation
-    cat("\nPCA Loadings for", key, "entry", i, ":\n")
-    print(head(pca_loadings))
-  }
-}
-```
-
-```{r, fig.width=6, fig.height=3, fig.cap="Map of completely random data"}
-m <- leaflet(data) %>% 
-  addTiles() %>% 
-  addCircleMarkers(~x, ~y, radius = ~size,color = ~as.factor(category)) %>% 
-  addPopups(~x[2], ~y[2], "Random popup")
-m  # a map with the default OSM tile layer
-```
-
-```{r}
-data %>% 
-  ggplot(aes(x=x,y=y,col=category))+
-  geom_point()
-```
-
 ### Dygraphs Example
-
-```{r}
-library(dygraphs)
-dygraph(nhtemp, main = "New Haven Temperatures") |> 
-  dyRangeSelector(dateWindow = c("1920-01-01", "1960-01-01")) 
-```
 
 # Conclusions
 
