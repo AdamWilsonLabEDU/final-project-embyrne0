@@ -182,39 +182,43 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1>Introduction</h1>
 <p>How do different Global Climate Models (GCMs) impact the projections of ice sheet behavior in ISMIP6 simulations? What is the influence of ocean forcing on the projections of ice sheet dynamics in ISMIP6 models? How do different Representative Concentration Pathways (RCPs) affect the projected outcomes of ice sheet models in ISMIP6? These are questions that have been asked within the ice sheet community in the recent years as new data, methods, and ideas have been discovered.</p>
 <p>The Ice Sheet Model Intercomparison Project for CMIP6 (ISMIP6) aims to address these questions by providing a framework for evaluating and comparing the responses of ice sheet models to various climate scenarios. ISMIP6 integrates multiple GCMs, RCPs, and ocean forcing parameters to project the future behavior of the Greenland and Antarctic ice sheets.</p>
-<p>This study focuses on analyzing the RCP experiments and looking at one key variable Surface Mass Balance flux (acabf). Principal Component Analysis (PCA) and K-means clustering will be used to analyze the variables, aiming to uncover patterns and groupings in the data.<strong>Hypothesis:</strong> By implementing PCA and Clustering methods,it is possible to uncover hidden patterns in the ISMIP6 simulation data, enabling more efficient data reduction and grouping of similar data points for further analysis. This approach will help to understand the variations in ice sheet response under various scenarios, RCP 8.5 and 2.6.</p>
+<p>This study focuses on analyzing the RCP experiments and looking at one key variable Surface Mass Balance flux (acabf). Principal Component Analysis (PCA) and K-means clustering will be used to analyze the variables, aiming to uncover patterns and groupings in the data. <strong>Hypothesis:</strong> By implementing PCA and Clustering methods,it is possible to uncover hidden patterns in the ISMIP6 simulation data, enabling more efficient data reduction and grouping of similar data points for further analysis. This approach will help to understand the variations in ice sheet response under various scenarios, RCP 8.5 and 2.6.</p>
 </section>
 <section id="materials-and-methods" class="level1">
 <h1>Materials and methods</h1>
 <p>[~ 200 words]</p>
 <p>Narrative:</p>
 <p>Code:</p>
-<p>Data:</p>
-<p>The data used in this study was sourced from the Center for Computational Research (CCR) at the University at Buffalo. The ISMIP6 dataset was previously downloaded from the CCR repository, focusing on the experiment and variable types needed for the RCP experiment group. This dataset includes projections of land ice thickness different Representative Concentration Pathways (RCPs). More information for ISMIP6 and the CCR can be found at:</p>
+<p>Data: The data used in this study was sourced from the Center for Computational Research (CCR) at the University at Buffalo. The ISMIP6 dataset was previously downloaded from the CCR repository, focusing on the experiment and variable types needed for the RCP experiment group. This dataset includes projections of land ice thickness different Representative Concentration Pathways (RCPs). More information for ISMIP6 and the CCR can be found at:</p>
 <p><a href="&quot;https://theghub.org/groups/ismip6/wiki&quot;">GHub Link</a></p>
 <p><a href="https://www.buffalo.edu/ccr.html">CCR website</a></p>
 <p>See <a href="http://rmarkdown.rstudio.com/" class="uri">http://rmarkdown.rstudio.com/</a> for all the amazing things you can do .</p>
-<p>Load any required packages in a code chunk (you may need to install some packages):</p>
+</section>
+<section id="load-any-required-packages-in-a-code-chunk-you-may-need-to-install-some-packages" class="level1">
+<h1>Load any required packages in a code chunk (you may need to install some packages):</h1>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># loading needed packages </span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(leaflet)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(htmlwidgets)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(widgetframe)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ncdf4)</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rmarkdown)</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("corrr")</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">'corrr'</span>)</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("FactoMineR")</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"FactoMineR"</span>)</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("ggcorrplot")</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggcorrplot)</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">widgetframe_widgets_dir =</span> <span class="st">'widgets'</span> ) </span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">cache=</span><span class="cn">TRUE</span>)  <span class="co"># cache the results for quick compiling</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("tidyverse")</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(leaflet)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(htmlwidgets)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(widgetframe)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lattice)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ncdf4)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rmarkdown)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(curl)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("corrr")</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">'corrr'</span>)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("FactoMineR")</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"FactoMineR"</span>)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("ggcorrplot")</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggcorrplot)</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">widgetframe_widgets_dir =</span> <span class="st">'widgets'</span> ) </span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">cache=</span><span class="cn">TRUE</span>)  <span class="co"># cache the results for quick compiling</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="download-and-clean-all-required-data" class="level2">
 <h2 class="anchored" data-anchor-id="download-and-clean-all-required-data">Download and clean all required data</h2>
