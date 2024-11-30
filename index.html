@@ -192,14 +192,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li><p>file_script.R = For setting up the variables, experiment types, and to assign the date</p></li>
 <li><p>data_extraction.R = Extracting the variable data based on the date (2015).</p></li>
-<li><p>Clean_data.R = To flatten the data points and then convert zero to NaN and drop across all models</p></li>
+<li><p>Clean_data.R = To flatten the data points and then convert zero to NaN and drop across all models.</p></li>
+<li><p>PCA_script.R = To standardize the data points and to impliment the PCA. This also contains plots for visualizations.</p></li>
+<li><p>Kmeans_clust.R = To impliment the k-means clustering from the reduced data points from the PCA. Contains plots for the visualizations.</p></li>
 </ul>
 <p>Data:</p>
 <p>The data used in this study was sourced from the Center for Computational Research (CCR) at the University at Buffalo. The ISMIP6 dataset was previously downloaded from the CCR repository, focusing on the experiment and variable types needed for the RCP experiment group. This dataset includes projections of land ice thickness different Representative Concentration Pathways (RCPs). More information for ISMIP6 and the CCR can be found at:</p>
 <p><a href="&quot;https://theghub.org/groups/ismip6/wiki&quot;">GHub Link</a></p>
 <p><a href="https://www.buffalo.edu/ccr.html">CCR website</a></p>
 <p>The file format of the ISMIP6 folders is <em>&lt;variable&gt;_&lt;IS&gt;_&lt;GROUP&gt;_&lt;MODEL&gt;_&lt;EXP&gt;.nc</em></p>
-<p>Variable = acabf, IS is either Greenland (GIS) or Antarctica (AIS), with the model names and groups, along with the experiment types 05 &amp; 07 (RCP8.5 and RCP2.6).</p>
+<p>Variable = SMB, IS is either Greenland (GIS) or Antarctica (AIS), with the model names and groups, along with the experiment types 05 &amp; 07 (RCP8.5 and RCP2.6).</p>
 </section>
 <section id="load-any-required-packages-in-a-code-chunk-you-may-need-to-install-some-packages" class="level1">
 <h1>Load any required packages in a code chunk (you may need to install some packages):</h1>
