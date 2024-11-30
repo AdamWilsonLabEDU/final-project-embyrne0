@@ -12,7 +12,7 @@ library(terra)  # geospatial data analysis
 library(ggplot2) # package for plotting
 
 # Create the variables and filtered needed
-path = "C:/Users/Margo/OneDrive/Documents/Fall 2024 Courses/Spatial Data Science Course/final-project-embyrne0/final-project-embyrne0/data"
+path = "C:/Users/Margo/OneDrive/Documents/Fall 2024 Courses/Spatial Data Science Course/final-project-embyrne0/data/acabf_GIS_model_experiments/"
 
 # Define the variable 'acabf'
 var <- 'acabf'

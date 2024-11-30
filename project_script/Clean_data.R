@@ -1,5 +1,5 @@
 # Source the script containing the extract_first_time_data function
-source('C:/Users/Margo/OneDrive/Documents/Fall 2024 Courses/Spatial Data Science Course/final-project-embyrne0/project_script/Clean_data.R')
+source('C:/Users/Margo/OneDrive/Documents/Fall 2024 Courses/Spatial Data Science Course/final-project-embyrne0/project_script/data_extraction.R')
 
 # Function to flatten the extracted data
 flatten_extracted_data <- function(extracted_data) {
