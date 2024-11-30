@@ -186,13 +186,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="materials-and-methods" class="level1">
 <h1>Materials and methods</h1>
-<p>[~ 200 words]</p>
 <p>Narrative:</p>
 <p>Code:</p>
-<p>Data: The data used in this study was sourced from the Center for Computational Research (CCR) at the University at Buffalo. The ISMIP6 dataset was previously downloaded from the CCR repository, focusing on the experiment and variable types needed for the RCP experiment group. This dataset includes projections of land ice thickness different Representative Concentration Pathways (RCPs). More information for ISMIP6 and the CCR can be found at:</p>
+<p>As the code was extensive, there wasn’t an option for running the code in the qmd folder as a data processing was on a larger scale. Instead the code has been broken into multiple script each serving a purpose.</p>
+<ul>
+<li><p>file_script.R = For setting up the variables, experiment types, and to assign the date</p></li>
+<li><p>data_extraction.R = Extracting the variable data based on the date (2015).</p></li>
+<li><p>Clean_data.R = To flatten the data points and then convert zero to NaN and drop across all models</p></li>
+</ul>
+<p>Data:</p>
+<p>The data used in this study was sourced from the Center for Computational Research (CCR) at the University at Buffalo. The ISMIP6 dataset was previously downloaded from the CCR repository, focusing on the experiment and variable types needed for the RCP experiment group. This dataset includes projections of land ice thickness different Representative Concentration Pathways (RCPs). More information for ISMIP6 and the CCR can be found at:</p>
 <p><a href="&quot;https://theghub.org/groups/ismip6/wiki&quot;">GHub Link</a></p>
 <p><a href="https://www.buffalo.edu/ccr.html">CCR website</a></p>
-<p>See <a href="http://rmarkdown.rstudio.com/" class="uri">http://rmarkdown.rstudio.com/</a> for all the amazing things you can do .</p>
+<p>The file format of the ISMIP6 folders is <em>&lt;variable&gt;_&lt;IS&gt;_&lt;GROUP&gt;_&lt;MODEL&gt;_&lt;EXP&gt;.nc</em></p>
+<p>Variable = acabf, IS is either Greenland (GIS) or Antarctica (AIS), with the model names and groups, along with the experiment types 05 &amp; 07 (RCP8.5 and RCP2.6).</p>
 </section>
 <section id="load-any-required-packages-in-a-code-chunk-you-may-need-to-install-some-packages" class="level1">
 <h1>Load any required packages in a code chunk (you may need to install some packages):</h1>
@@ -220,14 +227,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">widgetframe_widgets_dir =</span> <span class="st">'widgets'</span> ) </span>
 <span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">cache=</span><span class="cn">TRUE</span>)  <span class="co"># cache the results for quick compiling</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="download-and-clean-all-required-data" class="level2">
-<h2 class="anchored" data-anchor-id="download-and-clean-all-required-data">Download and clean all required data</h2>
-<p>Add any additional processing steps here.</p>
-</section>
-</section>
-<section id="methods" class="level1">
-<h1>Methods</h1>
-<p>Using the PCA and the K-means Clustering</p>
 </section>
 <section id="results" class="level1">
 <h1>Results</h1>
