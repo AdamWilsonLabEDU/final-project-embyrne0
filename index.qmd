@@ -26,7 +26,11 @@ As the code was extensive, there wasn't an option for running the code in the qm
 
 -   data_extraction.R = Extracting the variable data based on the date (2015).
 
--   Clean_data.R = To flatten the data points and then convert zero to NaN and drop across all models
+-   Clean_data.R = To flatten the data points and then convert zero to NaN and drop across all models.
+
+-   PCA_script.R = To standardize the data points and to impliment the PCA. This also contains plots for visualizations.
+
+-   Kmeans_clust.R = To impliment the k-means clustering from the reduced data points from the PCA. Contains plots for the visualizations.
 
 Data:
 
@@ -38,7 +42,7 @@ The data used in this study was sourced from the Center for Computational Resear
 
 The file format of the ISMIP6 folders is *\<variable\>\_\<IS\>\_\<GROUP\>\_\<MODEL\>\_\<EXP\>.nc*
 
-Variable = acabf, IS is either Greenland (GIS) or Antarctica (AIS), with the model names and groups, along with the experiment types 05 & 07 (RCP8.5 and RCP2.6).
+Variable = SMB, IS is either Greenland (GIS) or Antarctica (AIS), with the model names and groups, along with the experiment types 05 & 07 (RCP8.5 and RCP2.6).
 
 # Load any required packages in a code chunk (you may need to install some packages):
 
