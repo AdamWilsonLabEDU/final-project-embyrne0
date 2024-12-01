@@ -10,6 +10,8 @@ library(ncdf4)  # For reading NetCDF files
 library(raster) # package for raster manipulation
 library(terra)  # geospatial data analysis
 library(ggplot2) # package for plotting
+install.packages('plotly')
+library(plotly)
 
 # Create the variables and filtered needed
 path = "C:/Users/Margo/OneDrive/Documents/Fall 2024 Courses/Spatial Data Science Course/final-project-embyrne0/data/acabf_GIS_model_experiments/"
