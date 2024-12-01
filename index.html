@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Eleanor M. Byrne">
-<meta name="dcterms.date" content="2024-11-30">
+<meta name="dcterms.date" content="2024-12-01">
 
 <title>Unveiling Hidden Patterns: Clustering Analysis with ISMIP6 Models – GEO511_FinalProject</title>
 <style>
@@ -166,7 +166,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">November 30, 2024</p>
+      <p class="date">December 1, 2024</p>
     </div>
   </div>
   
@@ -187,8 +187,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="materials-and-methods" class="level1">
 <h1>Materials and methods</h1>
 <p>Narrative:</p>
+<p>This study utilizes the ISMIP6 dataset to analyze Surface Mass Balance (SMB) projections for the Greenland (GIS) and Antarctic Ice Sheets (AIS) under different Representative Concentration Pathways (RCPs). The data, sourced from the Center for Computational Research (CCR) at the University at Buffalo, is publicly accessible and was processed and analyzed in R. The ISMIP6 data includes SMB projections for various models and experiments (e.g., RCP8.5 and RCP2.6), providing insights into potential future changes in ice sheet mass balance.</p>
 <p>Code:</p>
-<p>As the code was extensive, there wasn’t an option for running the code in the qmd folder as a data processing was on a larger scale. Instead the code has been broken into multiple script each serving a purpose.</p>
+<p>The extensive codebase is divided into multiple R scripts:</p>
 <ul>
 <li><p>file_script.R = For setting up the variables, experiment types, and to assign the date</p></li>
 <li><p>data_extraction.R = Extracting the variable data based on the date (2015).</p></li>
@@ -197,11 +198,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>Kmeans_clust.R = To impliment the k-means clustering from the reduced data points from the PCA. Contains plots for the visualizations.</p></li>
 </ul>
 <p>Data:</p>
-<p>The data used in this study was sourced from the Center for Computational Research (CCR) at the University at Buffalo. The ISMIP6 dataset was previously downloaded from the CCR repository, focusing on the experiment and variable types needed for the RCP experiment group. This dataset includes projections of land ice thickness different Representative Concentration Pathways (RCPs). More information for ISMIP6 and the CCR can be found at:</p>
+<p>The file format of the ISMIP6 data is <em>&lt;variable&gt;_&lt;IS&gt;_&lt;GROUP&gt;_&lt;MODEL&gt;_&lt;EXP&gt;.nc.</em> Variable = SMB, IS is either Greenland (GIS) or Antarctica (AIS), with the model names and groups, along with the experiment types 05 &amp; 07 (RCP8.5 and RCP2.6).</p>
+<p>More information on ISMIP6 and CCR can be found at:</p>
 <p><a href="&quot;https://theghub.org/groups/ismip6/wiki&quot;">GHub Link</a></p>
 <p><a href="https://www.buffalo.edu/ccr.html">CCR website</a></p>
-<p>The file format of the ISMIP6 folders is <em>&lt;variable&gt;_&lt;IS&gt;_&lt;GROUP&gt;_&lt;MODEL&gt;_&lt;EXP&gt;.nc</em></p>
-<p>Variable = SMB, IS is either Greenland (GIS) or Antarctica (AIS), with the model names and groups, along with the experiment types 05 &amp; 07 (RCP8.5 and RCP2.6).</p>
 </section>
 <section id="load-any-required-packages-in-a-code-chunk-you-may-need-to-install-some-packages" class="level1">
 <h1>Load any required packages in a code chunk (you may need to install some packages):</h1>
