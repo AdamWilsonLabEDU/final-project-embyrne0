@@ -194,7 +194,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>file_script.R = For setting up the variables, experiment types, and to assign the date</p></li>
 <li><p>data_extraction.R = Extracting the variable data based on the date (2015).</p></li>
 <li><p>Clean_data.R = To flatten the data points and then convert zero to NaN and drop across all models.</p></li>
-<li><p>PCA_script.R = To standardize the data points and to impliment the PCA. This also contains plots for visualizations. It also contains the k-means clustering from the reduced data points from the PCA.</p></li>
+<li><p>PCA_script.R = To standardize the data points and to impliment the PCA. This also contains plots for visualizations.</p></li>
 </ul>
 <p>Data:</p>
 <p>The file format of the ISMIP6 data is <em>&lt;variable&gt;_&lt;IS&gt;_&lt;GROUP&gt;_&lt;MODEL&gt;_&lt;EXP&gt;.nc.</em> Variable = SMB, IS is either Greenland (GIS) or Antarctica (AIS), with the model names and groups, along with the experiment types 05 &amp; 07 (RCP8.5 and RCP2.6).</p>
@@ -226,7 +226,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("ggcorrplot")</span></span>
 <span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggcorrplot)</span>
 <span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">widgetframe_widgets_dir =</span> <span class="st">'widgets'</span> ) </span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">cache=</span><span class="cn">TRUE</span>)  <span class="co"># cache the results for quick compiling</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">cache=</span><span class="cn">TRUE</span>)  <span class="co"># cache the results for quick compiling</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="do">### for the scripts </span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ncdf4)  <span class="co"># For reading NetCDF files</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(raster) <span class="co"># package for raster manipulation</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(terra)  <span class="co"># geospatial data analysis</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2) <span class="co"># package for plotting</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">'plotly'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Downloading packages -------------------------------------------------------
+- Downloading plotly from CRAN ...              OK [3 Mb in 0.3s]
+Successfully downloaded 1 package in 1.9 seconds.
+
+The following package(s) will be installed:
+- plotly [4.10.4]
+These packages will be installed into "~/work/final-project-embyrne0/final-project-embyrne0/renv/library/linux-ubuntu-jammy/R-4.4/x86_64-pc-linux-gnu".
+
+# Installing packages --------------------------------------------------------
+- Installing plotly ...                         OK [installed binary and cached in 0.87s]
+Successfully installed 1 package in 0.98 seconds.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plotly)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="results" class="level1">
@@ -238,25 +259,38 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <figcaption><em>PC1 vs.&nbsp;PC2 Scores</em></figcaption>
 </figure>
 </div>
-<p>(Fig.1) This scatter plot represents the PCA scores for the first and second principal components (PC1 and PC2) derived from the standardized data. Each point in the plot corresponds to a data observation, and the plot helps visualize the variance captured by the first two principal components.</p>
+<p>(Fig. 1) This scatter plot represents the PCA scores for the first and second principal components (PC1 and PC2) derived from the standardized data. Each point in the plot corresponds to a data observation, and the plot helps visualize the variance captured by the first two principal components.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images_plots/Scree Plot.png" class="img-fluid figure-img"></p>
 <figcaption><em>Scree Plot</em></figcaption>
 </figure>
 </div>
-<p>(Fig. 2) This Scree plot displays the variance explained by each principal component. The “scree” refers to the plot of eigenvalues, where the x-axis represents each principal component and the y-axis represents the proportion of variance explained by that component.</p>
+<p>(Fig. 2) This Scree plot displays the variance explained by each principal component. The “scree” refers to the plot of variance, where the x-axis represents each principal component and the y-axis represents the proportion of variance explained by that component.</p>
 <p><img src="images_plots/Centered Data.png" class="img-fluid" alt="Scree Plot"> (Fig. 3) Data where the mean of each variable is subtracted, resulting in a new dataset where the mean of each variable is 0. This focuses analysis on variations from the mean.</p>
 <p><img src="images_plots/Scaled Data.png" class="img-fluid" alt="Scree Plot"> (Fig. 4) Data where each variable is scaled by its standard deviation, resulting in variables with the same units of measurement and variance of 1. This ensures no single variable dominates the PCA due to scale.</p>
+<p>The centered and scaled plots give insight into how the data was transformed to focus on meaningful variations (after centering) and to ensure fair contribution from each variable (after scaling).</p>
 </section>
 <section id="conclusions" class="level1">
 <h1>Conclusions</h1>
-<p>[~200 words]</p>
-<p>Clear summary adequately describing the results and putting them in context. Discussion of further questions and ways to continue investigation.</p>
+<p>The centered data represents the transformation where the mean of each or model group has been subtracted. This step shifts the data such that the new mean for each variable becomes zero. As you observed, the centered data displays moderate to high values, indicating that while the values of the model groups are now centered around zero, they still have a range of values that is not vastly different between the model groups.</p>
+<p>For the scaled data, the data that has been normalized by dividing by the standard deviation of each variable and to ensure that each model group contributes equally to the PCA. However, there are two model groups that are high which could mean that they had greater variability in their SMB values.</p>
+<p>This type of high values might be an indication for outliers. As they are both from the same model group and two different experiment types it can be argued that it was the conditions that the group set themselves when running the models.</p>
+</section>
+<section id="other-plots" class="level1">
+<h1>Other Plots</h1>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/1.png" class="img-fluid figure-img"></p>
+<figcaption>Initial State of SMB</figcaption>
+</figure>
+</div>
 </section>
 <section id="references" class="level1">
 <h1>References</h1>
-<p>All sources are cited in a consistent manner</p>
+<p>Jaadi, Z. (2024, February 23). <em>Principal Component Analysis (PCA): A Step-by-Step Explanation</em>. Built In. https://builtin.com/data-science/step-step-explanation-principal-component-analysis.</p>
+<p>Ibm. (2024, August 23). PCA. <em>IBM</em>. https://www.ibm.com/topics/principal-component-analysis.</p>
+<p>GeeksforGeeks. (2024, September 10). <em>Principal Component Analysis(PCA)</em>. GeeksforGeeks. https://www.geeksforgeeks.org/principal-component-analysis-pca/#</p>
 
 
 </section>
