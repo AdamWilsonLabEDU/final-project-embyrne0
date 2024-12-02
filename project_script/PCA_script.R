@@ -3,6 +3,7 @@
 source('C:/Users/Margo/OneDrive/Documents/Fall 2024 Courses/Spatial Data Science Course/final-project-embyrne0/project_script/Clean_data.R')
 
 # change the structure of the cleaned data before running the PCA
+  # Shortens the names as they orginally showed the full path name
 change_names <- function(data_list) {
   new_names <- sapply(names(data_list), function(x) {
     base_name <- basename(x)  # Extract the base name
@@ -25,6 +26,7 @@ model_group_names <- colnames(data_matrix)
 
 
 # Perform PCA with 2 components
+  # Two were choosen as there is only one variable with two experiments
 pca_result <- prcomp(data_matrix, center = TRUE, scale. = TRUE, rank. = 2)
 
 # Summarize the PCA result
@@ -36,7 +38,7 @@ pca_result$rotation  # Eigenvectors (loadings)
 # The transformed data (scores on the principal components)
 pca_scores <- pca_result$x
 
-# Plot PCA scores without model names
+# Plot PCA scores
 pca_plot <- ggplot(pca_scores, aes(x = PC1, y = PC2)) +
   geom_point() +
   labs(title = "PCA: First vs Second Principal Component", x = "PC1", y = "PC2") +

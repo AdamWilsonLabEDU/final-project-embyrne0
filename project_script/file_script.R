@@ -14,7 +14,7 @@ library(ggplot2) # package for plotting
 library(plotly)
 
 # Create the variables and filtered needed
-path = "C:/Users/Margo/OneDrive/Documents/Fall 2024 Courses/Spatial Data Science Course/final-project-embyrne0/data/acabf_GIS_model_experiments/"
+path = "..../Spatial Data Science Course/final-project-embyrne0/data/acabf_GIS_model_experiments/"
 
 # Define the variable 'acabf'
 var <- 'acabf'
@@ -34,7 +34,7 @@ filtered_files <- files[grep(var, files)]
 # Print the filtered files to check
 print(filtered_files)
 
-
+## example of opening one of the files
 # nc_data <- nc_open('data/acabf_GIS_VUB_GISM_exp05.nc')
 # t <- ncvar_get(nc_data, "time")
 # variable <- ncvar_get(nc_data, var)

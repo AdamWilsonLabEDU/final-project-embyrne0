@@ -27,15 +27,16 @@ flatten_extracted_data <- function(first_time_data_2015) {
     # Convert zeros to NaN
     flattened_data[[file_name]][flattened_data[[file_name]] == 0] <- NaN
 
-    # Add to the list of all flattened data for alignment check
+    # Add to the list of all flattened data
     all_data_list[[file_name]] <- flattened_data[[file_name]]
   }
 
-  # Convert the list to a data frame or matrix for alignment check
+  # Convert the list to a data frame or matrix
   all_data_matrix <- do.call(cbind, all_data_list)
 
-  # Now synchronize NaN positions: If one column has NaN, set the corresponding
+  # NaN positions: If one column has NaN, set the corresponding
   # index in all other columns to NaN
+    # get rid of NaN across all the rows, to ensure they remain the same size per model group
   for (i in 1:ncol(all_data_matrix)) {
     nan_indices <- which(is.nan(all_data_matrix[, i]))  # Find NaNs in column i
     for (j in 1:ncol(all_data_matrix)) {

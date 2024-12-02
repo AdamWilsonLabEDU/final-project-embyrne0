@@ -30,7 +30,7 @@ The extensive codebase is divided into multiple R scripts:
 
 -   Clean_data.R = To flatten the data points and then convert zero to NaN and drop across all models.
 
--   PCA_script.R = To standardize the data points and to impliment the PCA. This also contains plots for visualizations. It also contains the k-means clustering from the reduced data points from the PCA.
+-   PCA_script.R = To standardize the data points and to impliment the PCA. This also contains plots for visualizations.
 
 Data:
 
@@ -67,32 +67,44 @@ library("FactoMineR")
 library(ggcorrplot)
 knitr::opts_chunk$set(widgetframe_widgets_dir = 'widgets' ) 
 knitr::opts_chunk$set(cache=TRUE)  # cache the results for quick compiling
+
+### for the scripts 
+library(ncdf4)  # For reading NetCDF files
+library(raster) # package for raster manipulation
+library(terra)  # geospatial data analysis
+library(ggplot2) # package for plotting
+# install.packages('plotly')
+library(plotly)
 ```
 
 # Results
 
 **PCA Plots:**
 
-![*PC1 vs. PC2 Scores*](images_plots/PC1 vs. PC2 Scatter Plot.png)
+![*PC1 vs. PC2 Scores*](images_plots/PC1%20vs.%20PC2%20Scatter%20Plot.png)
 
-(Fig.1) This scatter plot represents the PCA scores for the first and second principal components (PC1 and PC2) derived from the standardized data. Each point in the plot corresponds to a data observation, and the plot helps visualize the variance captured by the first two principal components.
+(Fig. 1) This scatter plot represents the PCA scores for the first and second principal components (PC1 and PC2) derived from the standardized data. Each point in the plot corresponds to a data observation, and the plot helps visualize the variance captured by the first two principal components.
 
-![*Scree Plot*](images_plots/Scree Plot.png)
+![*Scree Plot*](images_plots/Scree%20Plot.png)
 
-(Fig. 2) This Scree plot displays the variance explained by each principal component. The "scree" refers to the plot of eigenvalues, where the x-axis represents each principal component and the y-axis represents the proportion of variance explained by that component. 
+(Fig. 2) This Scree plot displays the variance explained by each principal component. The "scree" refers to the plot of eigenvalues, where the x-axis represents each principal component and the y-axis represents the proportion of variance explained by that component.
 
-![*Scree Plot*](images_plots/Centered Data.png)
-(Fig. 3) Data where the mean of each variable is subtracted, resulting in a new dataset where the mean of each variable is 0. This focuses analysis on variations from the mean. 
+![Scree Plot](images_plots/Centered%20Data.png) (Fig. 3) Data where the mean of each variable is subtracted, resulting in a new dataset where the mean of each variable is 0. This focuses analysis on variations from the mean.
 
-![*Scree Plot*](images_plots/Scaled Data.png)
-(Fig. 4) Data where each variable is scaled by its standard deviation, resulting in variables with the same units of measurement and variance of 1. This ensures no single variable dominates the PCA due to scale.
+![Scree Plot](images_plots/Scaled%20Data.png) (Fig. 4) Data where each variable is scaled by its standard deviation, resulting in variables with the same units of measurement and variance of 1. This ensures no single variable dominates the PCA due to scale.
+
+The centered and scaled plots give insight into how the data was transformed to focus on meaningful variations (after centering) and to ensure fair contribution from each variable (after scaling).
 
 # Conclusions
 
-\[\~200 words\]
+The centered data represents the transformation where the mean of each or model group has been subtracted. This step shifts the data such that the new mean for each variable becomes zero. As you observed, the centered data displays moderate to high values, indicating that while the values of the model groups are now centered around zero, they still have a range of values that is not vastly different between the model groups.
 
-Clear summary adequately describing the results and putting them in context. Discussion of further questions and ways to continue investigation.
+For the scaled data, the data that has been normalized by dividing by the standard deviation of each variable and to ensure that each model group contributes equally to the PCA. However, there are two model groups that are high which could mean that they had greater variability in their SMB values.
+
+This type of high values might be an indication for outliers. As they are both from the same model group and two different experiment types it can be argued that it was the conditions that the group set themselves when running the models.
+
+# Other Plots
+
+![Initial State of SMB](images/1.png)
 
 # References
-
-All sources are cited in a consistent manner
