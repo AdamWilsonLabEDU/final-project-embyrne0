@@ -30,9 +30,7 @@ The extensive codebase is divided into multiple R scripts:
 
 -   Clean_data.R = To flatten the data points and then convert zero to NaN and drop across all models.
 
--   PCA_script.R = To standardize the data points and to impliment the PCA. This also contains plots for visualizations.
-
--   Kmeans_clust.R = To impliment the k-means clustering from the reduced data points from the PCA. Contains plots for the visualizations.
+-   PCA_script.R = To standardize the data points and to impliment the PCA. This also contains plots for visualizations. It also contains the k-means clustering from the reduced data points from the PCA.
 
 Data:
 
@@ -73,13 +71,21 @@ knitr::opts_chunk$set(cache=TRUE)  # cache the results for quick compiling
 
 # Results
 
-\[\~200 words\]
+**PCA Plots:**
 
-Tables and figures (maps and other graphics) are carefully planned to convey the results of your analysis. Intense exploration and evidence of many trials and failures. The author looked at the data in many different ways before coming to the final presentation of the data.
+![*PC1 vs. PC2 Scores*](images_plots/PC1 vs. PC2 Scatter Plot.png)
 
-Show tables, plots, etc. and describe them.
+(Fig.1) This scatter plot represents the PCA scores for the first and second principal components (PC1 and PC2) derived from the standardized data. Each point in the plot corresponds to a data observation, and the plot helps visualize the variance captured by the first two principal components.
 
-### Dygraphs Example
+![*Scree Plot*](images_plots/Scree Plot.png)
+
+(Fig. 2) This Scree plot displays the variance explained by each principal component. The "scree" refers to the plot of eigenvalues, where the x-axis represents each principal component and the y-axis represents the proportion of variance explained by that component. 
+
+![*Scree Plot*](images_plots/Centered Data.png)
+(Fig. 3) Data where the mean of each variable is subtracted, resulting in a new dataset where the mean of each variable is 0. This focuses analysis on variations from the mean. 
+
+![*Scree Plot*](images_plots/Scaled Data.png)
+(Fig. 4) Data where each variable is scaled by its standard deviation, resulting in variables with the same units of measurement and variance of 1. This ensures no single variable dominates the PCA due to scale.
 
 # Conclusions
 

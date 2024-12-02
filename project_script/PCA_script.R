@@ -36,12 +36,13 @@ pca_result$rotation  # Eigenvectors (loadings)
 # The transformed data (scores on the principal components)
 pca_scores <- pca_result$x
 
-## Create a ggplot object
-pca_plot <- ggplot(pca_scores, aes(x = PC1, y = PC2, text = ModelGroup)) +
+# Plot PCA scores without model names
+pca_plot <- ggplot(pca_scores, aes(x = PC1, y = PC2)) +
   geom_point() +
-  labs(title = "PCA: First vs Second Principal Component", x = "PC1", y = "PC2")
+  labs(title = "PCA: First vs Second Principal Component", x = "PC1", y = "PC2") +
+  theme_minimal()
 
-# Display the interactive plot
+# Display the PCA plot
 print(pca_plot)
 
 # Scree plot to see the variance explained by each principal component
@@ -56,7 +57,39 @@ print(scree_plot)
 print("Loadings for variables based on the experiment type:")
 print(pca_result$rotation)
 
-# Print explained variance for each principal component
-print("Explained variance for each principal component:")
-print(pca_result$sdev^2 / sum(pca_result$sdev^2))
+# Extract and print the centered and scaled data
+centered_data <- pca_result$center
+scaled_data <- pca_result$scale
+
+# Print centered data with model names
+print("Centered Data:")
+print(centered_data)
+
+# Print scaled data with model names
+print("Scaled Data:")
+print(scaled_data)
+
+# Convert centered and scaled data to data frames
+centered_df <- data.frame(ModelGroup = names(centered_data), Center = centered_data)
+scaled_df <- data.frame(ModelGroup = names(scaled_data), Scale = scaled_data)
+
+# Plot centered data
+centered_plot <- ggplot(centered_df, aes(x = ModelGroup, y = Center)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Centered Data", x = "Model Group", y = "Center Value") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+
+# Plot scaled data
+scaled_plot <- ggplot(scaled_df, aes(x = ModelGroup, y = Scale)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Scaled Data", x = "Model Group", y = "Scale Value") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+
+# Display the centered and scaled data plots
+print(centered_plot)
+print(scaled_plot)
+
+
 

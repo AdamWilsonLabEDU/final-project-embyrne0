@@ -10,7 +10,7 @@ library(ncdf4)  # For reading NetCDF files
 library(raster) # package for raster manipulation
 library(terra)  # geospatial data analysis
 library(ggplot2) # package for plotting
-install.packages('plotly')
+# install.packages('plotly')
 library(plotly)
 
 # Create the variables and filtered needed
