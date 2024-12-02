@@ -87,7 +87,7 @@ library(plotly)
 
 ![*Scree Plot*](images_plots/Scree%20Plot.png)
 
-(Fig. 2) This Scree plot displays the variance explained by each principal component. The "scree" refers to the plot of eigenvalues, where the x-axis represents each principal component and the y-axis represents the proportion of variance explained by that component.
+(Fig. 2) This Scree plot displays the variance explained by each principal component. The "scree" refers to the plot of variance, where the x-axis represents each principal component and the y-axis represents the proportion of variance explained by that component.
 
 ![Scree Plot](images_plots/Centered%20Data.png) (Fig. 3) Data where the mean of each variable is subtracted, resulting in a new dataset where the mean of each variable is 0. This focuses analysis on variations from the mean.
 
@@ -108,3 +108,9 @@ This type of high values might be an indication for outliers. As they are both f
 ![Initial State of SMB](images/1.png)
 
 # References
+
+Jaadi, Z. (2024, February 23). *Principal Component Analysis (PCA): A Step-by-Step Explanation*. Built In. https://builtin.com/data-science/step-step-explanation-principal-component-analysis.
+
+Ibm. (2024, August 23). PCA. *IBM*. https://www.ibm.com/topics/principal-component-analysis.
+
+GeeksforGeeks. (2024, September 10). *Principal Component Analysis(PCA)*. GeeksforGeeks. https://www.geeksforgeeks.org/principal-component-analysis-pca/#
