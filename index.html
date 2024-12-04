@@ -146,15 +146,19 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="introduction" class="level1">
 <h1>Introduction</h1>
-<p>How do different Global Climate Models (GCMs) impact the projections of ice sheet behavior in ISMIP6 simulations? What is the influence of ocean forcing on the projections of ice sheet dynamics in ISMIP6 models? How do different Representative Concentration Pathways (RCPs) affect the projected outcomes of ice sheet models in ISMIP6? These are questions that have been asked within the ice sheet community in the recent years as new data, methods, and ideas have been discovered.</p>
-<p>The Ice Sheet Model Intercomparison Project for CMIP6 (ISMIP6) aims to address these questions by providing a framework for evaluating and comparing the responses of ice sheet models to various climate scenarios. ISMIP6 integrates multiple GCMs, RCPs, and ocean forcing parameters to project the future behavior of the Greenland and Antarctic ice sheets.</p>
-<p>This study focuses on analyzing the RCP experiments and looking at one key variable Surface Mass Balance flux (acabf). Principal Component Analysis (PCA) and K-means clustering will be used to analyze the variables, aiming to uncover patterns and groupings in the data. <strong>Hypothesis:</strong> By implementing PCA and Clustering methods,it is possible to uncover hidden patterns in the ISMIP6 simulation data, enabling more efficient data reduction and grouping of similar data points for further analysis. This approach will help to understand the variations in ice sheet response under various scenarios, RCP 8.5 and 2.6.</p>
+<ul>
+<li><p>How do different Global Climate Models (GCMs) impact the projections of ice sheet behavior in ISMIP6 simulations?</p></li>
+<li><p>What is the influence of ocean forcing on the projections of ice sheet dynamics in ISMIP6 models?</p></li>
+<li><p>How do different Representative Concentration Pathways (RCPs) affect the projected outcomes of ice sheet models in ISMIP6?</p></li>
+</ul>
+<p>These are questions that have been asked within the ice sheet community in the recent years as new data, methods, and ideas have been discovered. The Ice Sheet Model Intercomparison Project for CMIP6 (ISMIP6) aims to address these questions by providing a framework for evaluating and comparing the responses of ice sheet models to various climate scenarios. ISMIP6 integrates multiple GCMs, RCPs, and ocean forcing parameters to project the future behavior of the Greenland and Antarctic ice sheets.</p>
+<p>This study focuses on analyzing the RCP experiments and looking at one key variable Surface Mass Balance flux (acabf). Principal Component Analysis (PCA) will be used to analyze the variables, aiming to uncover patterns and groupings in the data. <strong>Hypothesis:</strong> By implementing PCA and Clustering methods,it is possible to uncover hidden patterns in the ISMIP6 simulation data, enabling more efficient data reduction and grouping of similar data points for further analysis.</p>
 </section>
 <section id="materials-and-methods" class="level1">
 <h1>Materials and methods</h1>
 <p><strong>Narrative:</strong></p>
 <p>This study utilizes the ISMIP6 dataset to analyze Surface Mass Balance (SMB) projections for the Greenland (GIS) and Antarctic Ice Sheets (AIS) under different Representative Concentration Pathways (RCPs). The data, sourced from the Center for Computational Research (CCR) at the University at Buffalo, is publicly accessible and was processed and analyzed in R. The ISMIP6 data includes SMB projections for various models and experiments (e.g., RCP8.5 and RCP2.6), providing insights into potential future changes in ice sheet mass balance.</p>
-<p><strong>Code:</strong></p>
+<p><strong>Code/Script Format:</strong></p>
 <p>The extensive codebase is divided into multiple R scripts:</p>
 <ul>
 <li><p>file_script.R = For setting up the variables, experiment types, and to assign the date</p></li>
