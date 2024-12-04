@@ -1,120 +1,101 @@
 ---
-title: "My Final Project Template"
-author: Your name here
-subtitle: Subtitle here if desired
+title: "Unveiling Hidden Patterns: Clustering Analysis with ISMIP6 Models"
+author: Eleanor M. Byrne
+subtitle: A PCA and Clustering Analysis 
 date: today
 date-format: long
 ---
 
 # Introduction
 
-\[\~ 200 words\]
+-   How do different Global Climate Models (GCMs) impact the projections of ice sheet behavior in ISMIP6 simulations?
 
-Clearly stated background and questions / hypotheses / problems being addressed. Sets up the analysis in an interesting and compelling way. Include figures if you like.
+-   What is the influence of ocean forcing on the projections of ice sheet dynamics in ISMIP6 models?
+
+-   How do different Representative Concentration Pathways (RCPs) affect the projected outcomes of ice sheet models in ISMIP6?
+
+These are questions that have been asked within the ice sheet community in the recent years as new data, methods, and ideas have been discovered. The Ice Sheet Model Intercomparison Project for CMIP6 (ISMIP6) aims to address these questions by providing a framework for evaluating and comparing the responses of ice sheet models to various climate scenarios. ISMIP6 integrates multiple GCMs, RCPs, and ocean forcing parameters to project the future behavior of the Greenland and Antarctic ice sheets.
+
+This study focuses on analyzing the RCP experiments and looking at one key variable Surface Mass Balance flux (acabf). Principal Component Analysis (PCA) will be used to analyze the variables, aiming to uncover patterns and groupings in the data. **Hypothesis:** By implementing PCA and Clustering methods,it is possible to uncover hidden patterns in the ISMIP6 simulation data, enabling more efficient data reduction and grouping of similar data points for further analysis.
 
 # Materials and methods
 
-\[\~ 200 words\]
+**Narrative:**
 
-Narrative: Clear narrative description of the data sources and methods. Includes data from at least two sources that were integrated / merged in R.
+This study utilizes the ISMIP6 dataset to analyze Surface Mass Balance (SMB) projections for the Greenland (GIS) and Antarctic Ice Sheets (AIS) under different Representative Concentration Pathways (RCPs). The data, sourced from the Center for Computational Research (CCR) at the University at Buffalo, is publicly accessible and was processed and analyzed in R. The ISMIP6 data includes SMB projections for various models and experiments (e.g., RCP8.5 and RCP2.6), providing insights into potential future changes in ice sheet mass balance.
 
-Code: The code associated with the project is well organized and easy to follow. Demonstrates mastery of R graphics and functions.
+**Code/Script Format:**
 
-Data: The underlying data are publicly accessible via the web and downloaded/accessed within the Rmd script. If you want to use your own data, you must make it available on a website (e.g. Figshare) so that others are able to re-run your code.
+The extensive codebase is divided into multiple R scripts:
 
-You can do bullets like this:
+-   file_script.R = For setting up the variables, experiment types, and to assign the date
 
--   The first most important thing
--   The second most important thing
--   The third most important thing
+-   data_extraction.R = Extracting the variable data based on the date (2015).
 
-You can do numbers like this:
+-   Clean_data.R = To flatten the data points and then convert zero to NaN and drop across all models.
 
-1.  The first most important thing
-2.  The second most important thing
-3.  The third most important thing
+-   PCA_script.R = To standardize the data points and to impliment the PCA. This also contains plots for visualizations.
 
-See <http://rmarkdown.rstudio.com/> for all the amazing things you can do.
+**Data:**
 
-Here's my first code chunk.
+The file format of the ISMIP6 data is *\<variable\>\_\<IS\>\_\<GROUP\>\_\<MODEL\>\_\<EXP\>.nc.* Variable = SMB, IS is either Greenland (GIS) or Antarctica (AIS), with the model names and groups, along with the experiment types 05 & 07 (RCP8.5 and RCP2.6).
 
-```{r}
-x=3+4
-```
+More information on ISMIP6 and CCR can be found at:
 
-Refer to output in your narrative like this: x=`r x` .
+[GHub Link](%22https://theghub.org/groups/ismip6/wiki%22)
 
-Load any required packages in a code chunk (you may need to install some packages):
+[CCR website](https://www.buffalo.edu/ccr.html)
 
-```{r, message=F, warning=F}
-library(tidyverse)
-library(leaflet)
-library(kableExtra)
-library(htmlwidgets)
-library(widgetframe)
-knitr::opts_chunk$set(widgetframe_widgets_dir = 'widgets' ) 
-knitr::opts_chunk$set(cache=TRUE)  # cache the results for quick compiling
-```
+# Packages
 
-## Download and clean all required data
+-   ncdf4: For reading and writing NetCDF files.
 
-```{r}
-n=20
-data=data.frame(x=runif(n,-180,180),
-                y=runif(n,-60,60),
-                size = runif(n, 5, 20),
-                category = factor(
-                  sample(letters[1:5], n, replace = TRUE)
-                  ),
-                value = rnorm(n))
-```
+-   raster: For raster data manipulation.
 
-```{r, results='asis'}
-data %>% 
-  slice(1:10) %>% #show only 1:n rows
-  kable(digits=2,align="c")%>% #make table and round to two digits
-  kable_styling(bootstrap_options = 
-                  c("striped", "hover", "condensed", "responsive")) #apply other formatting
-```
+-   terra: For geospatial data manipulation.
 
-Add any additional processing steps here.
+-   ggplot2: For data visualization.
+
+-   plotly: For interactive data visualizations.
 
 # Results
 
-\[\~200 words\]
+**PCA Plots:**
 
-Tables and figures (maps and other graphics) are carefully planned to convey the results of your analysis. Intense exploration and evidence of many trials and failures. The author looked at the data in many different ways before coming to the final presentation of the data.
+![*PC1 vs. PC2 Scores*](images_plots/PC1%20vs.%20PC2%20Scatter%20Plot.png)
 
-Show tables, plots, etc. and describe them.
+(Fig. 1) This scatter plot represents the PCA scores for the first and second principal components (PC1 and PC2) derived from the standardized data. Each point in the plot corresponds to a data observation, and the plot helps visualize the variance captured by the first two principal components.
 
-```{r, fig.width=6, fig.height=3, fig.cap="Map of completely random data"}
-m <- leaflet(data) %>% 
-  addTiles() %>% 
-  addCircleMarkers(~x, ~y, radius = ~size,color = ~as.factor(category)) %>% 
-  addPopups(~x[2], ~y[2], "Random popup")
-m  # a map with the default OSM tile layer
-```
+![*Scree Plot*](images_plots/Scree%20Plot.png)
 
-```{r}
-data %>% 
-  ggplot(aes(x=x,y=y,col=category))+
-  geom_point()
-```
+(Fig. 2) This Scree plot displays the variance explained by each principal component. The "scree" refers to the plot of variance, where the x-axis represents each principal component and the y-axis represents the proportion of variance explained by that component.
 
-### Dygraphs Example
+![Scree Plot](images_plots/Centered%20Data.png)
 
-```{r}
-library(dygraphs)
-dygraph(nhtemp, main = "New Haven Temperatures") |> 
-  dyRangeSelector(dateWindow = c("1920-01-01", "1960-01-01")) 
-```
+(Fig. 3) Data where the mean of each variable is subtracted, resulting in a new dataset where the mean of each variable is 0. This focuses analysis on variations from the mean.
+
+![Scree Plot](images_plots/Scaled%20Data.png)
+
+(Fig. 4) Data where each variable is scaled by its standard deviation, resulting in variables with the same units of measurement and variance of 1. This ensures no single variable dominates the PCA due to scale.
+
+The centered and scaled plots give insight into how the data was transformed to focus on meaningful variations (after centering) and to ensure fair contribution from each variable (after scaling).
 
 # Conclusions
 
-\[\~200 words\]
+The centered data represents the transformation where the mean of each or model group has been subtracted. This step shifts the data such that the new mean for each variable becomes zero. As you observed, the centered data displays moderate to high values, indicating that while the values of the model groups are now centered around zero, they still have a range of values that is not vastly different between the model groups.
 
-Clear summary adequately describing the results and putting them in context. Discussion of further questions and ways to continue investigation.
+For the scaled data, the data that has been normalized by dividing by the standard deviation of each variable and to ensure that each model group contributes equally to the PCA. However, there are two model groups that are high which could mean that they had greater variability in their SMB values.
+
+This type of high values might be an indication for outliers. As they are both from the same model group and two different experiment types it can be argued that it was the conditions that the group set themselves when running the models.
+
+# Other Plots
+
+![Initial State of SMB example taken from my research.](images/1.png)
 
 # References
 
-All sources are cited in a consistent manner
+Jaadi, Z. (2024, February 23). *Principal Component Analysis (PCA): A Step-by-Step Explanation*. Built In. https://builtin.com/data-science/step-step-explanation-principal-component-analysis.
+
+Ibm. (2024, August 23). PCA. *IBM*. https://www.ibm.com/topics/principal-component-analysis.
+
+GeeksforGeeks. (2024, September 10). *Principal Component Analysis(PCA)*. GeeksforGeeks. https://www.geeksforgeeks.org/principal-component-analysis-pca/#
