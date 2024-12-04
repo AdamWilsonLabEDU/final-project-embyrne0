@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Eleanor M. Byrne">
-<meta name="dcterms.date" content="2024-12-03">
+<meta name="dcterms.date" content="2024-12-04">
 
 <title>Unveiling Hidden Patterns: Clustering Analysis with ISMIP6 Models – GEO511_FinalProject</title>
 <style>
@@ -166,7 +166,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">December 3, 2024</p>
+      <p class="date">December 4, 2024</p>
     </div>
   </div>
   
@@ -202,8 +202,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><a href="&quot;https://theghub.org/groups/ismip6/wiki&quot;">GHub Link</a></p>
 <p><a href="https://www.buffalo.edu/ccr.html">CCR website</a></p>
 </section>
-<section id="load-any-required-packages-in-a-code-chunk-you-may-need-to-install-some-packages" class="level1">
-<h1>Load any required packages in a code chunk (you may need to install some packages):</h1>
+<section id="packages" class="level1">
+<h1>Packages</h1>
+<ul>
+<li><p>ncdf4</p></li>
+<li><p>raster</p></li>
+<li><p>terra</p></li>
+<li><p>ggplot2</p></li>
+<li><p>plotly</p></li>
+</ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># loading needed packages </span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("tidyverse")</span></span>
@@ -236,7 +243,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">'plotly'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># Downloading packages -------------------------------------------------------
-- Downloading plotly from CRAN ...              OK [3 Mb in 0.27s]
+- Downloading plotly from CRAN ...              OK [3 Mb in 0.31s]
 Successfully downloaded 1 package in 1.8 seconds.
 
 The following package(s) will be installed:
@@ -244,8 +251,8 @@ The following package(s) will be installed:
 These packages will be installed into "~/work/final-project-embyrne0/final-project-embyrne0/renv/library/linux-ubuntu-jammy/R-4.4/x86_64-pc-linux-gnu".
 
 # Installing packages --------------------------------------------------------
-- Installing plotly ...                         OK [installed binary and cached in 0.83s]
-Successfully installed 1 package in 0.94 seconds.</code></pre>
+- Installing plotly ...                         OK [installed binary and cached in 0.86s]
+Successfully installed 1 package in 0.96 seconds.</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plotly)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -267,8 +274,20 @@ Successfully installed 1 package in 0.94 seconds.</code></pre>
 </figure>
 </div>
 <p>(Fig. 2) This Scree plot displays the variance explained by each principal component. The “scree” refers to the plot of variance, where the x-axis represents each principal component and the y-axis represents the proportion of variance explained by that component.</p>
-<p><img src="images_plots/Centered Data.png" class="img-fluid" alt="Scree Plot"> (Fig. 3) Data where the mean of each variable is subtracted, resulting in a new dataset where the mean of each variable is 0. This focuses analysis on variations from the mean.</p>
-<p><img src="images_plots/Scaled Data.png" class="img-fluid" alt="Scree Plot"> (Fig. 4) Data where each variable is scaled by its standard deviation, resulting in variables with the same units of measurement and variance of 1. This ensures no single variable dominates the PCA due to scale.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images_plots/Centered Data.png" class="img-fluid figure-img"></p>
+<figcaption>Scree Plot</figcaption>
+</figure>
+</div>
+<p>(Fig. 3) Data where the mean of each variable is subtracted, resulting in a new dataset where the mean of each variable is 0. This focuses analysis on variations from the mean.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images_plots/Scaled Data.png" class="img-fluid figure-img"></p>
+<figcaption>Scree Plot</figcaption>
+</figure>
+</div>
+<p>(Fig. 4) Data where each variable is scaled by its standard deviation, resulting in variables with the same units of measurement and variance of 1. This ensures no single variable dominates the PCA due to scale.</p>
 <p>The centered and scaled plots give insight into how the data was transformed to focus on meaningful variations (after centering) and to ensure fair contribution from each variable (after scaling).</p>
 </section>
 <section id="conclusions" class="level1">
@@ -282,7 +301,7 @@ Successfully installed 1 package in 0.94 seconds.</code></pre>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/1.png" class="img-fluid figure-img"></p>
-<figcaption>Initial State of SMB</figcaption>
+<figcaption>Initial State of SMB example taken from my research.</figcaption>
 </figure>
 </div>
 </section>
