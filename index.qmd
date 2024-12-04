@@ -16,11 +16,11 @@ This study focuses on analyzing the RCP experiments and looking at one key varia
 
 # Materials and methods
 
-Narrative:
+**Narrative:**
 
 This study utilizes the ISMIP6 dataset to analyze Surface Mass Balance (SMB) projections for the Greenland (GIS) and Antarctic Ice Sheets (AIS) under different Representative Concentration Pathways (RCPs). The data, sourced from the Center for Computational Research (CCR) at the University at Buffalo, is publicly accessible and was processed and analyzed in R. The ISMIP6 data includes SMB projections for various models and experiments (e.g., RCP8.5 and RCP2.6), providing insights into potential future changes in ice sheet mass balance.
 
-Code:
+**Code:**
 
 The extensive codebase is divided into multiple R scripts:
 
@@ -32,7 +32,7 @@ The extensive codebase is divided into multiple R scripts:
 
 -   PCA_script.R = To standardize the data points and to impliment the PCA. This also contains plots for visualizations.
 
-Data:
+**Data:**
 
 The file format of the ISMIP6 data is *\<variable\>\_\<IS\>\_\<GROUP\>\_\<MODEL\>\_\<EXP\>.nc.* Variable = SMB, IS is either Greenland (GIS) or Antarctica (AIS), with the model names and groups, along with the experiment types 05 & 07 (RCP8.5 and RCP2.6).
 
@@ -44,48 +44,15 @@ More information on ISMIP6 and CCR can be found at:
 
 # Packages
 
--   ncdf4
+-   ncdf4: For reading and writing NetCDF files.
 
--   raster
+-   raster: For raster data manipulation.
 
--   terra
+-   terra: For geospatial data manipulation.
 
--   ggplot2
+-   ggplot2: For data visualization.
 
--   plotly
-
-```{r, message=F, warning=F}
-# loading needed packages 
-# install.packages("tidyverse")
-library(tidyverse)
-library(leaflet)
-library(kableExtra)
-library(htmlwidgets)
-library(widgetframe)
-library(lattice)
-library(ncdf4)
-library(stringr)
-library(dplyr)
-library(rmarkdown)
-library(knitr)
-library(curl)
-# install.packages("corrr")
-library('corrr')
-# install.packages("FactoMineR")
-library("FactoMineR")
-# install.packages("ggcorrplot")
-library(ggcorrplot)
-knitr::opts_chunk$set(widgetframe_widgets_dir = 'widgets' ) 
-knitr::opts_chunk$set(cache=TRUE)  # cache the results for quick compiling
-
-### for the scripts 
-library(ncdf4)  # For reading NetCDF files
-library(raster) # package for raster manipulation
-library(terra)  # geospatial data analysis
-library(ggplot2) # package for plotting
-install.packages('plotly')
-library(plotly)
-```
+-   plotly: For interactive data visualizations.
 
 # Results
 
@@ -119,7 +86,7 @@ This type of high values might be an indication for outliers. As they are both f
 
 # Other Plots
 
-![Initial State of SMB example taken from my research. ](images/1.png)
+![Initial State of SMB example taken from my research.](images/1.png)
 
 # References
 
