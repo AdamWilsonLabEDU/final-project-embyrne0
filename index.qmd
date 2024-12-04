@@ -42,7 +42,17 @@ More information on ISMIP6 and CCR can be found at:
 
 [CCR website](https://www.buffalo.edu/ccr.html)
 
-# Load any required packages in a code chunk (you may need to install some packages):
+# Packages
+
+-   ncdf4
+
+-   raster
+
+-   terra
+
+-   ggplot2
+
+-   plotly
 
 ```{r, message=F, warning=F}
 # loading needed packages 
@@ -89,9 +99,13 @@ library(plotly)
 
 (Fig. 2) This Scree plot displays the variance explained by each principal component. The "scree" refers to the plot of variance, where the x-axis represents each principal component and the y-axis represents the proportion of variance explained by that component.
 
-![Scree Plot](images_plots/Centered%20Data.png) (Fig. 3) Data where the mean of each variable is subtracted, resulting in a new dataset where the mean of each variable is 0. This focuses analysis on variations from the mean.
+![Scree Plot](images_plots/Centered%20Data.png)
 
-![Scree Plot](images_plots/Scaled%20Data.png) (Fig. 4) Data where each variable is scaled by its standard deviation, resulting in variables with the same units of measurement and variance of 1. This ensures no single variable dominates the PCA due to scale.
+(Fig. 3) Data where the mean of each variable is subtracted, resulting in a new dataset where the mean of each variable is 0. This focuses analysis on variations from the mean.
+
+![Scree Plot](images_plots/Scaled%20Data.png)
+
+(Fig. 4) Data where each variable is scaled by its standard deviation, resulting in variables with the same units of measurement and variance of 1. This ensures no single variable dominates the PCA due to scale.
 
 The centered and scaled plots give insight into how the data was transformed to focus on meaningful variations (after centering) and to ensure fair contribution from each variable (after scaling).
 
@@ -105,7 +119,7 @@ This type of high values might be an indication for outliers. As they are both f
 
 # Other Plots
 
-![Initial State of SMB](images/1.png)
+![Initial State of SMB example taken from my research. ](images/1.png)
 
 # References
 
